@@ -10,37 +10,49 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin-top: 20px;
+  gap: 0.5rem;
 `;
 
-const PaginationButton = styled.button<{ active?: boolean }>`
-  padding: 8px 12px;
-  border: 1px solid ${props => props.active ? '#167ABC' : '#dee2e6'};
-  background: ${props => props.active ? '#167ABC' : 'white'};
-  color: ${props => props.active ? 'white' : '#167ABC'};
+const PaginationButton = styled.button<{ active?: boolean; isArrow?: boolean }>`
+  padding: 0.5rem 0.75rem;
+  border: ${(props) => props.isArrow ? "none" : `0.0625rem solid ${props.active ? "#167ABC" : "#D0D0D0"}`};
+  background: ${(props) => props.isArrow ? "transparent" : (props.active ? "#167ABC" : "#F5F5F5")};
+  color: ${(props) => (props.active ? "#FFFFFF" : "#555555")};
   cursor: pointer;
-  border-radius: 3px;
-  min-width: 32px;
-  height: 32px;
-  font-size: 14px;
-  font-weight: ${props => props.active ? '500' : '400'};
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  border-radius: ${(props) => props.isArrow ? "0" : "22%"};
+  min-width: 2rem;
+  height: 2rem;
+  font-size: 0.875rem;
+  font-weight: ${(props) => (props.active ? "500" : "400")};
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:focus {
+    outline: ${(props) => props.isArrow ? "none" : "auto"};
+  }
 
   &:disabled {
-    background: ${props => props.active ? '#167ABC' : 'white'};
-    color: ${props => props.active ? 'white' : '#167ABC'};
+    background: ${(props) => props.isArrow ? "transparent" : (props.active ? "#167ABC" : "#F5F5F5")};
+    color: ${(props) => (props.active ? "#FFFFFF" : "#555555")};
     cursor: default;
-    border-color: ${props => props.active ? '#167ABC' : '#dee2e6'};
+    border-color: ${(props) => props.isArrow ? "none" : (props.active ? "#167ABC" : "#D0D0D0")};
   }
 
   &:hover:not(:disabled) {
-    background: ${props => props.active ? '#0f5a94' : '#e9ecef'};
-    border-color: ${props => props.active ? '#0f5a94' : '#adb5bd'};
+    background: ${(props) => props.isArrow ? "transparent" : (props.active ? "#167ABC" : "#5DAFFF")};
+    border-color: ${(props) => props.isArrow ? "none" : (props.active ? "#167ABC" : "#5DAFFF")};
+    color: ${(props) => (props.active ? "#FFFFFF" : (props.isArrow ? "#5DAFFF" : "white"))};
   }
 `;
 
-export const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+export const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: PaginationProps) => {
   const renderPageNumbers = () => {
     const pages = [];
     const maxVisible = 5;
@@ -72,19 +84,21 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: Pagination
     <PaginationContainer>
       {currentPage > 2 && (
         <PaginationButton
+          isArrow
           onClick={() => onPageChange(1)}
           aria-label="Primeira página"
         >
-          &lt;&lt;
+          ‹‹
         </PaginationButton>
       )}
 
       {currentPage > 1 && (
         <PaginationButton
+          isArrow
           onClick={() => onPageChange(currentPage - 1)}
           aria-label="Página anterior"
         >
-          &lt;
+          ‹
         </PaginationButton>
       )}
 
@@ -92,19 +106,21 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: Pagination
 
       {currentPage < totalPages && (
         <PaginationButton
+          isArrow
           onClick={() => onPageChange(currentPage + 1)}
           aria-label="Próxima página"
         >
-          &gt;
+          ›
         </PaginationButton>
       )}
 
       {currentPage < totalPages - 1 && (
         <PaginationButton
+          isArrow
           onClick={() => onPageChange(totalPages)}
           aria-label="Última página"
         >
-          &gt;&gt;
+          ››
         </PaginationButton>
       )}
     </PaginationContainer>
