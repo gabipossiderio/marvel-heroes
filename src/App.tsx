@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import styled from "styled-components";
+import { useCharacterSearch } from "./hooks/useCharacterSearch";
+import { SearchInput } from "./components/SearchInput";
+import { CharacterTable } from "./components/CharacterTable";
+
+const ErrorMessage = styled.div`
+  color: red;
+  padding: 20px;
+  text-align: center;
+`;
+
+const EmptyState = styled.div`
+  padding: 20px;
+  text-align: center;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { characters, loading, search, setSearch, error } =
+    useCharacterSearch();
+
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Busca de personagens</h1>
+      <SearchInput value={search} onChange={handleSearchChange} />
+
+      {loading ? (
+        <div>Carregando personagens...</div>
+      ) : error ? (
+        <ErrorMessage>{error}</ErrorMessage>
+      ) : characters.length === 0 ? (
+        <EmptyState>Nenhum personagem encontrado.</EmptyState>
+      ) : (
+        <CharacterTable characters={characters} />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
