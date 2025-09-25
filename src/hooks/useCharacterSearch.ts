@@ -21,33 +21,20 @@ export const useCharacterSearch = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const loadCharacters = async () => {
-      try {
-        setLoading(true);
-        setError("");
-        const data = await fetchCharacters("");
-        setCharacters(data);
-      } catch {
-        setError("Erro ao carregar personagens. Tente novamente.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadCharacters();
-  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const searchCharacters = async () => {
       try {
         setLoading(true);
         setError("");
-        const data = await fetchCharacters(search.trim());
-        setCharacters(data);
+        const offset = (currentPage - 1) * 10;
+        const response = await fetchCharacters(search.trim(), offset);
+        setCharacters(response.results);
+        setTotalPages(Math.ceil(response.total / 10));
       } catch {
-        setError("Erro ao buscar personagens. Tente novamente.");
+        setError("Erro ao carregar personagens. Tente novamente.");
       } finally {
         setLoading(false);
       }
@@ -56,13 +43,25 @@ export const useCharacterSearch = () => {
     const debounceTimer = setTimeout(searchCharacters, 1000);
 
     return () => clearTimeout(debounceTimer);
-  }, [search]);
+  }, [search, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const resetSearch = (newSearch: string) => {
+    setSearch(newSearch);
+    setCurrentPage(1);
+  };
 
   return {
     characters,
     loading,
     search,
-    setSearch,
+    setSearch: resetSearch,
     error,
+    currentPage,
+    totalPages,
+    onPageChange: handlePageChange,
   };
 };

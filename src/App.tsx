@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useCharacterSearch } from "./hooks/useCharacterSearch";
 import { SearchInput } from "./components/SearchInput";
 import { CharacterTable } from "./components/CharacterTable";
+import { Pagination } from "./components/Pagination";
 
 const ErrorMessage = styled.div`
   color: red;
@@ -15,8 +16,16 @@ const EmptyState = styled.div`
 `;
 
 function App() {
-  const { characters, loading, search, setSearch, error } =
-    useCharacterSearch();
+  const {
+    characters,
+    loading,
+    search,
+    setSearch,
+    error,
+    currentPage,
+    totalPages,
+    onPageChange
+  } = useCharacterSearch();
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
@@ -34,7 +43,14 @@ function App() {
       ) : characters.length === 0 ? (
         <EmptyState>Nenhum personagem encontrado.</EmptyState>
       ) : (
-        <CharacterTable characters={characters} />
+        <>
+          <CharacterTable characters={characters} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        </>
       )}
     </div>
   );

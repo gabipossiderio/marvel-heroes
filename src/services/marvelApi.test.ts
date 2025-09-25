@@ -18,7 +18,8 @@ describe('marvelApi', () => {
               series: { items: [] },
               events: { items: [] }
             }
-          ]
+          ],
+          total: 1563
         }
       }
     }
@@ -26,14 +27,17 @@ describe('marvelApi', () => {
     mockedAxios.get.mockResolvedValue(mockResponse)
     const result = await fetchCharacters('')
 
-    expect(result).toEqual([
-      {
-        id: 1,
-        name: 'Spider-Man',
-        thumbnail: { path: 'image', extension: 'jpg' },
-        series: { items: [] },
-        events: { items: [] }
-      }
-    ])
+    expect(result).toEqual({
+      results: [
+        {
+          id: 1,
+          name: 'Spider-Man',
+          thumbnail: { path: 'image', extension: 'jpg' },
+          series: { items: [] },
+          events: { items: [] }
+        }
+      ],
+      total: 1563
+    })
   })
 })
