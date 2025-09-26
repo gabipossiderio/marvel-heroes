@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NavbarContainer = styled.nav`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.surface};
   width: 100%;
   padding: 1rem 2rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.25rem ${({ theme }) => theme.colors.shadow};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,20 +14,28 @@ const NavbarContainer = styled.nav`
   left: 0;
   z-index: 1000;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
 
   @media (max-width: 768px) {
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0.5rem;
+    min-width: 0;
   }
 `;
 
 const Logo = styled.div`
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  min-width: 0;
 `;
 
 const LogoImage = styled.img`
   height: 2rem;
   width: auto;
+
+  @media (max-width: 768px) {
+    height: 1.5rem;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -51,9 +60,10 @@ const UserInfo = styled.div`
 `;
 
 const UserName = styled.span`
-  color: #333333;
+  color: ${({ theme }) => theme.colors.text};
   font-weight: 600;
   margin-right: 0.5rem;
+  transition: color 0.3s ease;
 
   @media (max-width: 768px) {
     margin-right: 0;
@@ -61,7 +71,8 @@ const UserName = styled.span`
 `;
 
 const UserRole = styled.span`
-  color: #555555;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  transition: color 0.3s ease;
 `;
 
 const UserAvatar = styled.div`
@@ -97,7 +108,7 @@ export const Navbar = () => {
   return (
     <NavbarContainer>
       <Logo>
-        <LogoImage src="/objective-logo.png" alt="Objective" />
+        <LogoImage src="/logo.svg" alt="Logo" />
       </Logo>
       <UserInfo>
         <div>
@@ -105,6 +116,7 @@ export const Navbar = () => {
           <UserRole>Teste de Front-End</UserRole>
         </div>
         <UserAvatar>GP</UserAvatar>
+        <ThemeToggle />
       </UserInfo>
     </NavbarContainer>
   );

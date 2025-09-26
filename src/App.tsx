@@ -9,6 +9,7 @@ import { Navbar } from "./components/Navbar";
 import { CharacterSkeleton } from "./components/CharacterSkeleton";
 import { PaginationSkeleton } from "./components/PaginationSkeleton";
 import { CharacterDetail } from "./components/CharacterDetail";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 const AppContainer = styled.div`
   max-width: 100rem;
@@ -18,6 +19,8 @@ const AppContainer = styled.div`
   padding-top: 6rem;
   padding-bottom: 6rem;
   overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.background};
+  transition: background-color 0.3s ease;
 
   @media (max-width: 768px) {
     padding: 1rem;
@@ -26,11 +29,13 @@ const AppContainer = styled.div`
   }
 `;
 
+
 const Header = styled.h1`
-  color: #555555;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.875rem;
   font-size: 2.5rem;
   font-weight: 700;
+  transition: color 0.3s ease;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -48,24 +53,28 @@ const Footer = styled.footer`
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.surface};
   padding: 1rem 0;
-  box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -0.125rem 0.25rem ${({ theme }) => theme.colors.shadow};
   z-index: 1000;
   display: flex;
   justify-content: center;
+  transition: background-color 0.3s ease;
   align-items: center;
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
+  color: ${({ theme }) => theme.colors.background === '#121212' ? '#ff6b6b' : 'red'};
   padding: 1.25rem;
   text-align: center;
+  transition: color 0.3s ease;
 `;
 
 const EmptyState = styled.div`
   padding: 1.25rem;
   text-align: center;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  transition: color 0.3s ease;
 `;
 
 function App() {
@@ -95,15 +104,15 @@ function App() {
 
   if (selectedCharacter) {
     return (
-      <>
+      <ThemeProvider>
         <Navbar />
         <CharacterDetail character={selectedCharacter} onBack={handleBackToList} />
-      </>
+      </ThemeProvider>
     );
   }
 
   return (
-    <>
+    <ThemeProvider>
       <Navbar />
       <AppContainer>
         <Header>Busca de Personagens</Header>
@@ -133,7 +142,7 @@ function App() {
           />
         )}
       </Footer>
-    </>
+    </ThemeProvider>
   );
 }
 
