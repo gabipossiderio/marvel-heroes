@@ -1,22 +1,9 @@
 import styled from "styled-components";
-
-interface Character {
-  id: number;
-  name: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-  series: {
-    items: Array<{ name: string }>;
-  };
-  events: {
-    items: Array<{ name: string }>;
-  };
-}
+import type { Character } from "../types/Character";
 
 interface CharacterTableProps {
   characters: Character[];
+  onCharacterClick?: (character: Character) => void;
 }
 
 const TableContainer = styled.div`
@@ -57,21 +44,20 @@ const ScrollableArea = styled.div`
 
   /* Custom scrollbar */
   &::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 0.25rem;
   }
 
   &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 0.25rem;
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #167abc;
-    border-radius: 0.25rem;
+    background: rgba(22, 122, 188, 0.3);
+    border-radius: 0.125rem;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: #0f5a94;
+    background: rgba(22, 122, 188, 0.5);
   }
 
   @media (max-width: 768px) {
@@ -91,6 +77,16 @@ const CharacterRow = styled.div`
   border-radius: 0.25rem;
   box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
   gap: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 6rem;
+  align-items: center;
+
+  &:hover {
+    outline: 0.2rem solid #cccccc;
+    outline-offset: -0.2rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
 
   @media (max-width: 768px) {
     display: flex;
@@ -104,6 +100,7 @@ const CharacterRow = styled.div`
     gap: 0.75rem;
     width: 100%;
     box-sizing: border-box;
+    min-height: 5rem;
   }
 `;
 
@@ -147,6 +144,9 @@ const SeriesCell = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  font-weight: 500;
+  align-self: flex-start;
+  padding-top: 0.5rem;
 
   @media (max-width: 768px) {
     display: none;
@@ -157,15 +157,21 @@ const EventsCell = styled.div`
   color: #555555;
   line-height: 1.4;
   display: flex;
+  font-weight: 500;
   flex-direction: column;
   gap: 0.25rem;
+  align-self: flex-start;
+  padding-top: 0.5rem;
 
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
-export const CharacterTable = ({ characters }: CharacterTableProps) => {
+export const CharacterTable = ({
+  characters,
+  onCharacterClick,
+}: CharacterTableProps) => {
   return (
     <TableContainer>
       <TableHeader>
@@ -178,7 +184,11 @@ export const CharacterTable = ({ characters }: CharacterTableProps) => {
 
       <ScrollableArea>
         {characters.map((character) => (
-          <CharacterRow key={character.id}>
+          <CharacterRow
+            key={character.id}
+            onClick={() => onCharacterClick?.(character)}
+            data-testid={`character-row-${character.id}`}
+          >
             <CharacterCell>
               <CharacterImage
                 src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
