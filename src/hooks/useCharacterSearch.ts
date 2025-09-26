@@ -46,6 +46,7 @@ export const useCharacterSearch = () => {
   }, [search, currentPage]);
 
   const handlePageChange = (page: number) => {
+    setLoading(true);
     setCurrentPage(page);
   };
 

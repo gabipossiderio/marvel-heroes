@@ -8,13 +8,19 @@ import { CharacterSkeleton } from "./components/CharacterSkeleton";
 import { PaginationSkeleton } from "./components/PaginationSkeleton";
 
 const AppContainer = styled.div`
-  max-width: 75rem;
+  max-width: 100rem;
   margin: 0 auto;
   padding: 1.25rem;
   height: calc(100vh - 8rem);
   padding-top: 6rem;
   padding-bottom: 6rem;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    padding-top: 5.5rem;
+    height: calc(100vh - 6.5rem);
+  }
 `;
 
 const Header = styled.h1`
@@ -22,6 +28,12 @@ const Header = styled.h1`
   margin-bottom: 1.875rem;
   font-size: 2.5rem;
   font-weight: 700;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
 `;
 
 const ContentArea = styled.div`

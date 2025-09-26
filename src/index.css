@@ -1,5 +1,6 @@
 :root {
-  font-family: 'adobe-clean', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "adobe-clean", "Inter", system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #555555;
@@ -23,7 +24,7 @@ body {
   margin: 0;
   min-width: 20rem;
   height: 100vh;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   overflow: hidden;
 }
 
