@@ -30,7 +30,8 @@ const TableHeader = styled.div`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.background === '#121212' ? theme.colors.surface : '#e5e5e5'};
+  background-color: ${({ theme }) =>
+    theme.colors.background === "#121212" ? theme.colors.surface : "#e5e5e5"};
   transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: 768px) {
@@ -39,7 +40,7 @@ const TableHeader = styled.div`
 `;
 
 const ScrollableArea = styled.div`
-  max-height: 50vh;
+  height: calc(100vh - 27rem);
   overflow-y: auto;
   padding-right: 0.5rem;
 
@@ -79,7 +80,8 @@ const CharacterRow = styled.div`
   box-shadow: 0 0.0625rem 0.1875rem ${({ theme }) => theme.colors.shadow};
   gap: 1.5rem;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.3s ease;
   min-height: 6rem;
   align-items: center;
 

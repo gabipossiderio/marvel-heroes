@@ -29,16 +29,18 @@ const BackButtonContainer = styled.div`
     left: 0;
     right: 0;
     transform: none;
-    background: white;
+    background: ${({ theme }) => theme.colors.surface};
     padding: 1rem;
-    box-shadow: 0 -0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -0.25rem 0.5rem ${({ theme }) => theme.colors.shadow};
     display: flex;
     justify-content: center;
+    transition: background-color 0.3s ease;
+    border-top: 0.0625rem solid ${({ theme }) => theme.colors.border};
   }
 `;
 
 const BackButton = styled.button`
-  background: #167abc;
+  background: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -47,26 +49,34 @@ const BackButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.25rem ${({ theme }) => theme.colors.shadow};
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 
   &:hover {
-    background: #0f5a94;
+    background: ${({ theme }) => theme.colors.primaryHover};
     transform: translateY(-0.125rem);
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.25rem 0.5rem ${({ theme }) => theme.colors.shadow};
   }
 
   &:active {
     transform: translateY(0);
   }
+
+  &:focus {
+    outline: 0.125rem solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 0.125rem;
+  }
 `;
 
 const HeroSection = styled.div`
-  background: ${({ theme }) => theme.colors.background === '#121212' ? theme.colors.surface : 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)'};
+  background: ${({ theme }) =>
+    theme.colors.background === "#121212"
+      ? theme.colors.surface
+      : "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)"};
   border-radius: 1rem;
-  padding: 3rem;
+  padding: 1rem;
   box-shadow: 0 0.5rem 2rem ${({ theme }) => theme.colors.shadow};
   margin-bottom: 3rem;
   position: relative;
@@ -101,6 +111,7 @@ const HeroContent = styled.div`
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
+    max-height: none;
   }
 `;
 
@@ -109,8 +120,8 @@ const ImageContainer = styled.div`
 `;
 
 const CharacterImage = styled.img`
-  width: 12rem;
-  height: 12rem;
+  width: 8rem;
+  height: 8rem;
   border-radius: 1rem;
   object-fit: cover;
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
@@ -130,7 +141,7 @@ const CharacterInfo = styled.div`
 
 const CharacterName = styled.h1`
   color: ${({ theme }) => theme.colors.text};
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.1;
@@ -144,7 +155,7 @@ const CharacterName = styled.h1`
 
 const CharacterDescription = styled.p`
   color: #555555;
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.7;
   margin-top: 0.5rem;
   font-weight: 400;
@@ -247,15 +258,19 @@ const MediaList = styled.div`
 `;
 
 const MediaItem = styled.div`
-  background: ${({ theme }) => theme.colors.background === '#121212' ? '#2c2c2c' : '#f8f9fa'};
+  background: ${({ theme }) =>
+    theme.colors.background === "#121212" ? "#2c2c2c" : "#f8f9fa"};
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
-  color: ${({ theme }) => theme.colors.background === '#121212' ? '#f0f0f0' : '#495057'};
+  color: ${({ theme }) =>
+    theme.colors.background === "#121212" ? "#f0f0f0" : "#495057"};
   font-size: 0.875rem;
   line-height: 1.4;
   flex-shrink: 0;
-  border: ${({ theme }) => theme.colors.background === '#121212' ? '1px solid #404040' : 'none'};
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  border: ${({ theme }) =>
+    theme.colors.background === "#121212" ? "1px solid #404040" : "none"};
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 `;
 
 const EmptyDetailsSection = styled.div`
