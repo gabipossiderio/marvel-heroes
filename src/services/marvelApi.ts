@@ -1,8 +1,8 @@
 import axios from 'axios'
 import md5 from 'crypto-js/md5'
 
-const PUBLIC_KEY = '838563787ac17ba0f001a941ccf0fbea'
-const PRIVATE_KEY = '621bdddce683403ff5587c89cac1c191cfb16217'
+const PUBLIC_KEY = import.meta.env.VITE_MARVEL_PUBLIC_KEY
+const PRIVATE_KEY = import.meta.env.VITE_MARVEL_PRIVATE_KEY
 const BASE_URL = 'https://gateway.marvel.com/v1/public'
 
 interface MarvelCharacter {
