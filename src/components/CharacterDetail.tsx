@@ -13,6 +13,8 @@ const DetailContainer = styled.div`
   padding-top: 6rem;
   padding-bottom: 8rem;
   min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background};
+  transition: background-color 0.3s ease;
 `;
 
 const BackButtonContainer = styled.div`
@@ -62,13 +64,14 @@ const BackButton = styled.button`
 `;
 
 const HeroSection = styled.div`
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: ${({ theme }) => theme.colors.background === '#121212' ? theme.colors.surface : 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)'};
   border-radius: 1rem;
   padding: 3rem;
-  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.5rem 2rem ${({ theme }) => theme.colors.shadow};
   margin-bottom: 3rem;
   position: relative;
   overflow: hidden;
+  transition: background 0.3s ease;
 
   &::before {
     content: "";
@@ -126,15 +129,12 @@ const CharacterInfo = styled.div`
 `;
 
 const CharacterName = styled.h1`
-  color: #2c3e50;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.1;
-  background: linear-gradient(135deg, #2c3e50, #34495e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  transition: color 0.3s ease;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
@@ -188,11 +188,12 @@ const MediaGrid = styled.div`
 `;
 
 const MediaSection = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.surface};
   border-radius: 1rem;
   padding: 1.5rem;
-  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.06);
-  border: 0.0625rem solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.25rem 1rem ${({ theme }) => theme.colors.shadow};
+  border: 0.0625rem solid ${({ theme }) => theme.colors.border};
+  transition: background-color 0.3s ease;
 
   @media (max-width: 768px) {
     padding: 1.25rem;
@@ -200,13 +201,14 @@ const MediaSection = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-  color: #2c3e50;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 0.125rem solid #e9ecef;
+  border-bottom: 0.125rem solid ${({ theme }) => theme.colors.border};
   position: relative;
+  transition: color 0.3s ease;
 
   &::after {
     content: "";
@@ -245,22 +247,25 @@ const MediaList = styled.div`
 `;
 
 const MediaItem = styled.div`
-  background: #f8f9fa;
+  background: ${({ theme }) => theme.colors.background === '#121212' ? '#2c2c2c' : '#f8f9fa'};
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
-  color: #495057;
+  color: ${({ theme }) => theme.colors.background === '#121212' ? '#f0f0f0' : '#495057'};
   font-size: 0.875rem;
   line-height: 1.4;
   flex-shrink: 0;
+  border: ${({ theme }) => theme.colors.background === '#121212' ? '1px solid #404040' : 'none'};
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 `;
 
 const EmptyDetailsSection = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.colors.surface};
   border-radius: 1rem;
   padding: 3rem;
-  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.06);
-  border: 0.0625rem solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.25rem 1rem ${({ theme }) => theme.colors.shadow};
+  border: 0.0625rem solid ${({ theme }) => theme.colors.border};
   text-align: center;
+  transition: background-color 0.3s ease;
 
   @media (max-width: 768px) {
     padding: 2rem;
@@ -268,10 +273,11 @@ const EmptyDetailsSection = styled.div`
 `;
 
 const EmptyMessage = styled.p`
-  color: #666666;
+  color: ${({ theme }) => theme.colors.textSecondary};
   font-size: 1.125rem;
   margin: 0;
   font-weight: 500;
+  transition: color 0.3s ease;
 `;
 
 export const CharacterDetail = ({

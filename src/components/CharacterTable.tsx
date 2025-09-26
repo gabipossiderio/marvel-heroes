@@ -26,11 +26,12 @@ const TableHeader = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.8fr 0.6fr;
   padding: 0.9375rem 1.25rem;
-  border-bottom: 0.0625rem solid #dee2e6;
+  border-bottom: 0.0625rem solid ${({ theme }) => theme.colors.border};
   font-weight: 500;
-  color: #b5b5b5;
+  color: ${({ theme }) => theme.colors.textSecondary};
   margin-bottom: 0.5rem;
-  background-color: #e5e5e5;
+  background-color: ${({ theme }) => theme.colors.background === '#121212' ? theme.colors.surface : '#e5e5e5'};
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: 768px) {
     display: none;
@@ -71,21 +72,21 @@ const CharacterRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.8fr 0.6fr;
   padding: 1.25rem;
-  background-color: white;
-  border-bottom: 0.0625rem solid #dee2e6;
+  background-color: ${({ theme }) => theme.colors.surface};
+  border-bottom: 0.0625rem solid ${({ theme }) => theme.colors.border};
   margin-bottom: 0.5rem;
   border-radius: 0.25rem;
-  box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.0625rem 0.1875rem ${({ theme }) => theme.colors.shadow};
   gap: 1.5rem;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
   min-height: 6rem;
   align-items: center;
 
   &:hover {
-    outline: 0.2rem solid #cccccc;
+    outline: 0.2rem solid ${({ theme }) => theme.colors.border};
     outline-offset: -0.2rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem ${({ theme }) => theme.colors.shadow};
   }
 
   @media (max-width: 768px) {
@@ -95,8 +96,8 @@ const CharacterRow = styled.div`
     margin-bottom: 0.75rem;
     border-radius: 0.5rem;
     box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.1);
-    border: 0.0625rem solid #e5e5e5;
-    border-bottom: 0.0625rem solid #e5e5e5;
+    border: 0.0625rem solid ${({ theme }) => theme.colors.border};
+    border-bottom: 0.0625rem solid ${({ theme }) => theme.colors.border};
     gap: 0.75rem;
     width: 100%;
     box-sizing: border-box;
@@ -130,7 +131,8 @@ const CharacterImage = styled.img`
 
 const CharacterName = styled.span`
   font-weight: 700;
-  color: #555555;
+  color: ${({ theme }) => theme.colors.text};
+  transition: color 0.3s ease;
 
   @media (max-width: 768px) {
     font-size: 1rem;
