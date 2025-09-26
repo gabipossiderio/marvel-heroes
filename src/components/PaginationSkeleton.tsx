@@ -17,11 +17,11 @@ const SkeletonContainer = styled.div`
   animation: ${pulse} 2s ease-in-out infinite;
 `;
 
-const SkeletonButton = styled.div<{ isArrow?: boolean }>`
+const SkeletonButton = styled.div<{ $isArrow?: boolean }>`
   background-color: #f3f4f6;
-  border-radius: ${(props) => props.isArrow ? "0.25rem" : "22%"};
-  width: ${(props) => props.isArrow ? "1.5rem" : "2rem"};
-  height: ${(props) => props.isArrow ? "1.5rem" : "2rem"};
+  border-radius: ${(props) => props.$isArrow ? "0.25rem" : "22%"};
+  width: ${(props) => props.$isArrow ? "1.5rem" : "2rem"};
+  height: ${(props) => props.$isArrow ? "1.5rem" : "2rem"};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,15 +30,15 @@ const SkeletonButton = styled.div<{ isArrow?: boolean }>`
 export const PaginationSkeleton = () => {
   return (
     <SkeletonContainer>
-      <SkeletonButton isArrow />
-      <SkeletonButton isArrow />
+      <SkeletonButton $isArrow />
+      <SkeletonButton $isArrow />
       <SkeletonButton />
       <SkeletonButton />
       <SkeletonButton />
       <SkeletonButton />
       <SkeletonButton />
-      <SkeletonButton isArrow />
-      <SkeletonButton isArrow />
+      <SkeletonButton $isArrow />
+      <SkeletonButton $isArrow />
     </SkeletonContainer>
   );
 };

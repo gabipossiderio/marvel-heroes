@@ -53,22 +53,22 @@ const SkeletonArea = styled.div`
   overflow-y: auto;
   padding-right: 0.5rem;
 
+  /* Custom scrollbar */
   &::-webkit-scrollbar {
-    width: 0.5rem;
+    width: 0.25rem;
   }
 
   &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 0.25rem;
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #167abc;
-    border-radius: 0.25rem;
+    background: rgba(22, 122, 188, 0.3);
+    border-radius: 0.125rem;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: #0f5a94;
+    background: rgba(22, 122, 188, 0.5);
   }
 
   @media (max-width: 768px) {

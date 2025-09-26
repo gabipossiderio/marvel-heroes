@@ -13,17 +13,17 @@ const PaginationContainer = styled.div`
   gap: 0.5rem;
 `;
 
-const PaginationButton = styled.button<{ active?: boolean; isArrow?: boolean }>`
+const PaginationButton = styled.button<{ $active?: boolean; $isArrow?: boolean }>`
   padding: 0.5rem 0.75rem;
-  border: ${(props) => props.isArrow ? "none" : `0.0625rem solid ${props.active ? "#167ABC" : "#D0D0D0"}`};
-  background: ${(props) => props.isArrow ? "transparent" : (props.active ? "#167ABC" : "#F5F5F5")};
-  color: ${(props) => (props.active ? "#FFFFFF" : "#555555")};
+  border: ${(props) => props.$isArrow ? "none" : `0.0625rem solid ${props.$active ? "#167ABC" : "#D0D0D0"}`};
+  background: ${(props) => props.$isArrow ? "transparent" : (props.$active ? "#167ABC" : "#F5F5F5")};
+  color: ${(props) => (props.$active ? "#FFFFFF" : "#555555")};
   cursor: pointer;
-  border-radius: ${(props) => props.isArrow ? "0" : "22%"};
+  border-radius: ${(props) => props.$isArrow ? "0" : "22%"};
   min-width: 2rem;
   height: 2rem;
   font-size: 0.875rem;
-  font-weight: ${(props) => (props.active ? "500" : "400")};
+  font-weight: ${(props) => (props.$active ? "500" : "400")};
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   display: flex;
@@ -31,20 +31,20 @@ const PaginationButton = styled.button<{ active?: boolean; isArrow?: boolean }>`
   justify-content: center;
 
   &:focus {
-    outline: ${(props) => props.isArrow ? "none" : "auto"};
+    outline: ${(props) => props.$isArrow ? "none" : "auto"};
   }
 
   &:disabled {
-    background: ${(props) => props.isArrow ? "transparent" : (props.active ? "#167ABC" : "#F5F5F5")};
-    color: ${(props) => (props.active ? "#FFFFFF" : "#555555")};
+    background: ${(props) => props.$isArrow ? "transparent" : (props.$active ? "#167ABC" : "#F5F5F5")};
+    color: ${(props) => (props.$active ? "#FFFFFF" : "#555555")};
     cursor: default;
-    border-color: ${(props) => props.isArrow ? "none" : (props.active ? "#167ABC" : "#D0D0D0")};
+    border-color: ${(props) => props.$isArrow ? "none" : (props.$active ? "#167ABC" : "#D0D0D0")};
   }
 
   &:hover:not(:disabled) {
-    background: ${(props) => props.isArrow ? "transparent" : (props.active ? "#167ABC" : "#5DAFFF")};
-    border-color: ${(props) => props.isArrow ? "none" : (props.active ? "#167ABC" : "#5DAFFF")};
-    color: ${(props) => (props.active ? "#FFFFFF" : (props.isArrow ? "#5DAFFF" : "white"))};
+    background: ${(props) => props.$isArrow ? "transparent" : (props.$active ? "#167ABC" : "#5DAFFF")};
+    border-color: ${(props) => props.$isArrow ? "none" : (props.$active ? "#167ABC" : "#5DAFFF")};
+    color: ${(props) => (props.$active ? "#FFFFFF" : (props.$isArrow ? "#5DAFFF" : "white"))};
   }
 `;
 
@@ -67,7 +67,7 @@ export const Pagination = ({
       pages.push(
         <PaginationButton
           key={i}
-          active={i === currentPage}
+          $active={i === currentPage}
           disabled={i === currentPage}
           onClick={() => onPageChange(i)}
           aria-label={`Página ${i}`}
@@ -84,7 +84,7 @@ export const Pagination = ({
     <PaginationContainer>
       {currentPage > 2 && (
         <PaginationButton
-          isArrow
+          $isArrow
           onClick={() => onPageChange(1)}
           aria-label="Primeira página"
         >
@@ -94,7 +94,7 @@ export const Pagination = ({
 
       {currentPage > 1 && (
         <PaginationButton
-          isArrow
+          $isArrow
           onClick={() => onPageChange(currentPage - 1)}
           aria-label="Página anterior"
         >
@@ -106,7 +106,7 @@ export const Pagination = ({
 
       {currentPage < totalPages && (
         <PaginationButton
-          isArrow
+          $isArrow
           onClick={() => onPageChange(currentPage + 1)}
           aria-label="Próxima página"
         >
@@ -116,7 +116,7 @@ export const Pagination = ({
 
       {currentPage < totalPages - 1 && (
         <PaginationButton
-          isArrow
+          $isArrow
           onClick={() => onPageChange(totalPages)}
           aria-label="Última página"
         >
