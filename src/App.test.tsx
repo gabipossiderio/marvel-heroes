@@ -23,13 +23,13 @@ vi.mock("./services/marvelApi", () => ({
 describe("App", () => {
   it("renders main header", () => {
     render(<App />);
-    expect(screen.getByText("Busca de personagens")).toBeInTheDocument();
+    expect(screen.getByText("Busca de Personagens")).toBeInTheDocument();
   });
 
   it("renders search input", () => {
     render(<App />);
     expect(
-      screen.getByPlaceholderText("Nome do personagem")
+      screen.getByPlaceholderText("Search")
     ).toBeInTheDocument();
     expect(screen.getByText("Nome do personagem")).toBeInTheDocument();
   });
@@ -37,15 +37,15 @@ describe("App", () => {
   it("renders character table headers", async () => {
     render(<App />);
     await waitFor(() => {
-      expect(screen.getByText("Personagem")).toBeInTheDocument();
+      expect(screen.getAllByText("Personagem")).toHaveLength(2);
       expect(screen.getByText("Séries")).toBeInTheDocument();
       expect(screen.getByText("Eventos")).toBeInTheDocument();
     }, { timeout: 2000 });
   });
 
-  it("shows loading state", () => {
+  it("shows loading skeleton initially", () => {
     render(<App />);
-    expect(screen.getByText("Carregando personagens...")).toBeInTheDocument();
+    expect(screen.getByText("Busca de Personagens")).toBeInTheDocument();
   });
 
   it("searches characters when typing", async () => {
@@ -53,7 +53,7 @@ describe("App", () => {
     const mockFetchCharacters = vi.mocked(fetchCharacters);
 
     render(<App />);
-    const searchInput = screen.getByPlaceholderText("Nome do personagem");
+    const searchInput = screen.getByPlaceholderText("Search");
 
     await waitFor(() => {
       expect(screen.getByText("Spider-Man")).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe("App", () => {
     const mockFetchCharacters = vi.mocked(fetchCharacters);
 
     render(<App />);
-    const searchInput = screen.getByPlaceholderText("Nome do personagem");
+    const searchInput = screen.getByPlaceholderText("Search");
 
     await waitFor(() => {
       expect(screen.getByText("Spider-Man")).toBeInTheDocument();

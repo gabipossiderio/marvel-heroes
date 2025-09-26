@@ -1,11 +1,14 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useCharacterSearch } from "./hooks/useCharacterSearch";
+import type { Character } from "./types/Character";
 import { SearchInput } from "./components/SearchInput";
 import { CharacterTable } from "./components/CharacterTable";
 import { Pagination } from "./components/Pagination";
 import { Navbar } from "./components/Navbar";
 import { CharacterSkeleton } from "./components/CharacterSkeleton";
 import { PaginationSkeleton } from "./components/PaginationSkeleton";
+import { CharacterDetail } from "./components/CharacterDetail";
 
 const AppContainer = styled.div`
   max-width: 100rem;
@@ -66,6 +69,7 @@ const EmptyState = styled.div`
 `;
 
 function App() {
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const {
     characters,
     loading,
@@ -80,6 +84,23 @@ function App() {
   const handleSearchChange = (value: string) => {
     setSearch(value);
   };
+
+  const handleCharacterClick = (character: Character) => {
+    setSelectedCharacter(character);
+  };
+
+  const handleBackToList = () => {
+    setSelectedCharacter(null);
+  };
+
+  if (selectedCharacter) {
+    return (
+      <>
+        <Navbar />
+        <CharacterDetail character={selectedCharacter} onBack={handleBackToList} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -96,7 +117,7 @@ function App() {
           ) : characters.length === 0 ? (
             <EmptyState>Nenhum personagem encontrado.</EmptyState>
           ) : (
-            <CharacterTable characters={characters} />
+            <CharacterTable characters={characters} onCharacterClick={handleCharacterClick} />
           )}
         </ContentArea>
       </AppContainer>
