@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# 🦸‍♂️ Marvel Heroes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação React para busca e visualização de personagens da Marvel, desenvolvida como teste técnico para vaga de desenvolvedor front-end.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ **Listagem de personagens** com paginação (10 por página)
+- ✅ **Busca por nome** em tempo real
+- ✅ **Detalhes do personagem** com mídias relacionadas
+- ✅ **Design responsivo** adaptado para mobile
+- ✅ **Sistema de tema** claro/escuro
+- ✅ **Testes unitários** com cobertura completa
 
-## React Compiler
+## 🛠️ Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 18** - Hooks nativos (useState, useEffect, useMemo, useCallback)
+- **TypeScript** - Tipagem rigorosa
+- **Styled Components** - CSS-in-JS com tema dinâmico
+- **Vitest** - Testes com metodologia TDD
+- **Marvel API** - Dados dos personagens
+- **Vite** - Build tool otimizado
 
-## Expanding the ESLint configuration
+## 🏗️ Arquitetura
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/          # Componentes React reutilizáveis
+├── contexts/           # Context API para tema
+├── hooks/              # Custom hooks
+├── services/           # Integração com APIs
+├── styles/             # Tokens de design e temas
+└── types/              # Definições TypeScript
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Como executar
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Pré-requisitos
+- Node.js 18+
+- npm ou yarn
+- Chaves da Marvel API
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/marvel-heroes.git
+cd marvel-heroes
 ```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Configure as variáveis de ambiente:
+```bash
+# Crie um arquivo .env.local na raiz do projeto
+VITE_MARVEL_PUBLIC_KEY=sua_chave_publica
+VITE_MARVEL_PRIVATE_KEY=sua_chave_privada
+```
+
+4. Execute o projeto:
+```bash
+npm run dev
+```
+
+5. Execute os testes:
+```bash
+npm test
+```
+
+## 🧪 Metodologia de Desenvolvimento
+
+- **TDD (Test-Driven Development)** - Testes escritos antes da implementação
+- **Commits semânticos** - Histórico organizado e descritivo
+- **Clean Code** - Código legível e bem estruturado
+- **Performance** - Otimizações com memoização
+
+## 📱 Responsividade
+
+- **Desktop** - Layout completo com todas as informações
+- **Mobile** - Interface adaptada, ocultando descrições para economia de espaço
+- **Tablets** - Híbrido entre desktop e mobile
+
+## 🎨 Sistema de Tema
+
+- **Detecção automática** da preferência do sistema
+- **Persistência** no localStorage
+- **Transições suaves** entre temas
+- **Acessibilidade** com contraste adequado
+
+## 👩‍💻 Desenvolvido por
+
+**Gabriella Possidério**
+
+---
+
+*Projeto desenvolvido seguindo as melhores práticas de React e metodologia TDD para demonstração de habilidades técnicas.*
