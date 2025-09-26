@@ -1,7 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { CharacterDetail } from './CharacterDetail'
+import { ThemeProvider } from '../contexts/ThemeProvider'
 import type { Character } from '../types/Character'
+
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  clear: vi.fn(),
+}
+Object.defineProperty(window, 'localStorage', { value: localStorageMock })
 
 const mockCharacter: Character = {
   id: 1,
@@ -28,20 +36,29 @@ const mockCharacter: Character = {
   }
 }
 
+const renderWithTheme = (component: React.ReactElement) => {
+  localStorageMock.getItem.mockReturnValue('light')
+  return render(
+    <ThemeProvider>
+      {component}
+    </ThemeProvider>
+  )
+}
+
 describe('CharacterDetail', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
   it('displays character name and description', () => {
-    render(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
+    renderWithTheme(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
 
     expect(screen.getByText('Spider-Man')).toBeInTheDocument()
     expect(screen.getByText('Friendly neighborhood Spider-Man')).toBeInTheDocument()
   })
 
   it('displays character image', () => {
-    render(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
+    renderWithTheme(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
 
     const image = screen.getByAltText('Spider-Man')
     expect(image).toBeInTheDocument()
@@ -49,7 +66,7 @@ describe('CharacterDetail', () => {
   })
 
   it('displays comics section with title and list', () => {
-    render(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
+    renderWithTheme(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
 
     expect(screen.getByText('Comics')).toBeInTheDocument()
     expect(screen.getByText('Amazing Spider-Man #1')).toBeInTheDocument()
@@ -57,7 +74,7 @@ describe('CharacterDetail', () => {
   })
 
   it('displays series section with title and list', () => {
-    render(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
+    renderWithTheme(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
 
     expect(screen.getByText('Séries')).toBeInTheDocument()
     expect(screen.getByText('Amazing Spider-Man')).toBeInTheDocument()
@@ -65,7 +82,7 @@ describe('CharacterDetail', () => {
   })
 
   it('displays events section with title and list', () => {
-    render(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
+    renderWithTheme(<CharacterDetail character={mockCharacter} onBack={() => {}} />)
 
     expect(screen.getByText('Eventos')).toBeInTheDocument()
     expect(screen.getByText('Civil War')).toBeInTheDocument()
@@ -74,7 +91,7 @@ describe('CharacterDetail', () => {
 
   it('calls onBack when back button is clicked', () => {
     const onBackMock = vi.fn()
-    render(<CharacterDetail character={mockCharacter} onBack={onBackMock} />)
+    renderWithTheme(<CharacterDetail character={mockCharacter} onBack={onBackMock} />)
 
     const backButton = screen.getByText('Voltar')
     backButton.click()
@@ -84,7 +101,7 @@ describe('CharacterDetail', () => {
 
   it('handles character without description gracefully', () => {
     const characterWithoutDescription = { ...mockCharacter, description: '' }
-    render(<CharacterDetail character={characterWithoutDescription} onBack={() => {}} />)
+    renderWithTheme(<CharacterDetail character={characterWithoutDescription} onBack={() => {}} />)
 
     expect(screen.getByText('Spider-Man')).toBeInTheDocument()
     expect(screen.queryByText('Friendly neighborhood Spider-Man')).not.toBeInTheDocument()
